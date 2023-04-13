@@ -1,5 +1,5 @@
 import { axiosInstance } from '@/api/axios.instance'
-import { ICustomer, TCustomerFields } from '@/models/Customer.interface'
+import { ICustomer } from '@/models/Customer.interface'
 
 export const CustomersService = {
 	async getCustomers(): Promise<ICustomer[]> {
@@ -7,7 +7,7 @@ export const CustomersService = {
 		return data
 	},
 
-	async createCustomer(formBody: TCustomerFields): Promise<ICustomer> {
+	async createCustomer(formBody: Omit<ICustomer, 'id'>): Promise<ICustomer> {
 		const { data } = await axiosInstance.post('/customers', formBody)
 		return data
 	}

@@ -13,7 +13,6 @@ export interface ICustomer {
 }
 
 export interface TCustomerFields {
-	id: string
 	name: string
 	email: string
 	deferral_days: number
