@@ -1,0 +1,46 @@
+[
+	{
+		"id": "85agf7hm71gks7",
+		"name": "Test",
+		"email": "example@example.com",
+		"deferral_days": 14,
+		"org": {
+			"id": "bbz8lhzaA2zke",
+			"name": "test-org",
+			"inn": "501902051",
+			"kpp": "696519218",
+			"ogrn": "8588812881285",
+			"addr": "набережная реки Фонтанки, 16, Санкт-Петербург, 191183",
+			"bank_accounts": [
+				{
+					"id": "ZksmbAusnW",
+					"name": "Nikita",
+					"bik": "123456789",
+					"account_number": "18658219067173205196112",
+					"corr_account_number": "5419591286728618256182",
+					"is_default": true,
+					"created_at": "2023-04-11T15:20:43.914Z",
+					"updated_at": "2023-04-11T15:20:43.914Z"
+				}
+			],
+			"created_at": "2023-04-11T15:20:43.914Z",
+			"updated_at": "2023-04-11T15:20:43.914Z"
+		},
+		"balance": {
+			"currency": "string",
+			"current_amount": 12500,
+			"credit_limit": 0,
+			"available_amount": 4000
+		},
+		"metadata": {
+			"additionalProp1": "test",
+			"additionalProp2": "test",
+			"additionalProp3": "test"
+		},
+		"created_at": "2023-04-11T15:20:43.914Z",
+		"updated_at": "2023-04-11T15:20:43.914Z",
+		"status": "active",
+		"invoice_prefix": "test",
+		"invoice_emails": ["test@mail.ru"]
+	}
+]
