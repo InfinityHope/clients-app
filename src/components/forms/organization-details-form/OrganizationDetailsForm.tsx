@@ -1,98 +1,43 @@
+import CustomInput from '@/components/ui/CustomInput'
 import { useFormValues } from '@/hooks/useForm'
-import { Box, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react'
-import { Controller } from 'react-hook-form'
+import { Box } from '@chakra-ui/react'
 
 const OrganizationDetailsForm = () => {
 	const { control } = useFormValues()
 
 	return (
 		<Box>
-			<Controller
-				rules={{
-					required: {
-						value: true,
-						message: 'Введите название организации'
-					}
-				}}
-				render={({ field: { onChange, value }, fieldState: { invalid, error } }) => (
-					<FormControl isInvalid={invalid}>
-						<FormLabel>Название организации</FormLabel>
-						<Input value={value} onChange={onChange} size='sm' />
-						{error?.message && <FormErrorMessage>{error.message}</FormErrorMessage>}
-					</FormControl>
-				)}
+			<CustomInput
+				label='Название организации'
+				required={{ value: true, message: 'Введите название организации' }}
 				name={'org.name'}
 				control={control}
 			/>
 
-			<Controller
-				rules={{
-					required: {
-						value: true,
-						message: 'Введите ИНН организации'
-					}
-				}}
-				render={({ field: { onChange, value }, fieldState: { invalid, error } }) => (
-					<FormControl isInvalid={invalid}>
-						<FormLabel>ИНН организации</FormLabel>
-						<Input value={value} onChange={onChange} size='sm' />
-						{error?.message && <FormErrorMessage>{error.message}</FormErrorMessage>}
-					</FormControl>
-				)}
+			<CustomInput
+				label='ИНН организации'
+				required={{ value: true, message: 'Введите ИНН организации' }}
 				name={'org.inn'}
 				control={control}
 			/>
 
-			<Controller
-				rules={{
-					required: {
-						value: true,
-						message: 'Введите КПП организации'
-					}
-				}}
-				render={({ field: { onChange, value }, fieldState: { invalid, error } }) => (
-					<FormControl isInvalid={invalid}>
-						<FormLabel>КПП организации</FormLabel>
-						<Input value={value} onChange={onChange} size='sm' />
-						{error?.message && <FormErrorMessage>{error.message}</FormErrorMessage>}
-					</FormControl>
-				)}
+			<CustomInput
+				label='КПП организации'
+				required={{ value: true, message: 'Введите КПП организации' }}
 				name={'org.kpp'}
 				control={control}
 			/>
 
-			<Controller
-				rules={{
-					required: {
-						value: true,
-						message: 'Введите ОГРН организации'
-					}
-				}}
-				render={({ field: { onChange, value }, fieldState: { invalid, error } }) => (
-					<FormControl isInvalid={invalid}>
-						<FormLabel>ОГРН организации</FormLabel>
-						<Input value={value} onChange={onChange} size='sm' />
-						{error?.message && <FormErrorMessage>{error.message}</FormErrorMessage>}
-					</FormControl>
-				)}
+			<CustomInput
+				label='ОГРН организации'
+				required={{ value: true, message: 'Введите ОГРН организации' }}
 				name={'org.ogrn'}
 				control={control}
 			/>
 
-			<Controller
-				rules={{
-					required: {
-						value: true,
-						message: 'Введите юридический адрес'
-					}
-				}}
-				render={({ field: { onChange, value }, fieldState: { invalid, error } }) => (
-					<FormControl isInvalid={invalid}>
-						<FormLabel>Юридический адрес</FormLabel>
-						<Input value={value} onChange={onChange} size='sm' />
-						{error?.message && <FormErrorMessage>{error.message}</FormErrorMessage>}
-					</FormControl>
-				)}
+			<CustomInput
+				label='Юридический адрес'
+				required={{ value: true, message: 'Введите юридический адрес' }}
 				name={'org.addr'}
 				control={control}
 			/>

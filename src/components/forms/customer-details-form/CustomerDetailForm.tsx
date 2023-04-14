@@ -1,67 +1,39 @@
+import CustomInput from '@/components/ui/CustomInput'
 import { useFormValues } from '@/hooks/useForm'
-import { Box, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react'
-import { Controller } from 'react-hook-form'
+import { Box } from '@chakra-ui/react'
 
 const ClientDetailForm = () => {
 	const { control } = useFormValues()
 
 	return (
 		<Box>
-			<Controller
-				rules={{ required: { value: true, message: 'Введите имя' } }}
-				render={({ field: { onChange, value }, fieldState: { invalid, error } }) => (
-					<FormControl isInvalid={invalid}>
-						<FormLabel>Имя</FormLabel>
-						<Input value={value} onChange={onChange} size='sm' />
-						{error?.message && <FormErrorMessage>{error.message}</FormErrorMessage>}
-					</FormControl>
-				)}
+			<CustomInput
+				label='Имя'
+				required={{ value: true, message: 'Введите имя' }}
 				name={'name'}
 				control={control}
 			/>
-			<Controller
-				rules={{ required: { value: true, message: 'Введите E-mail' } }}
-				render={({ field: { onChange, value }, fieldState: { invalid, error } }) => (
-					<FormControl isInvalid={invalid}>
-						<FormLabel>E-mail</FormLabel>
-						<Input value={value} onChange={onChange} size='sm' />
-						{error?.message && <FormErrorMessage>{error.message}</FormErrorMessage>}
-					</FormControl>
-				)}
+			<CustomInput
+				label='E-mail'
+				required={{ value: true, message: 'Введите E-mail' }}
 				name={'email'}
 				control={control}
 			/>
-			<Controller
-				rules={{
-					pattern: {
-						value: /^(0|[1-9]\d*)(\.\d+)?$/,
-						message: 'Дней отсрочки должно быть больше или равно 0'
-					}
+			<CustomInput
+				label='Кол-во дней отсрочки'
+				pattern={{
+					value: /^(0|[1-9]\d*)(\.\d+)?$/,
+					message: 'Дней отсрочки должно быть больше или равно 0'
 				}}
-				render={({ field: { onChange, value }, fieldState: { invalid, error } }) => (
-					<FormControl isInvalid={invalid}>
-						<FormLabel>Кол-во дней отсрочки</FormLabel>
-						<Input value={value} onChange={onChange} size='sm' />
-						{error?.message && <FormErrorMessage>{error.message}</FormErrorMessage>}
-					</FormControl>
-				)}
 				name={'deferral_days'}
 				control={control}
 			/>
-			<Controller
-				rules={{
-					pattern: {
-						value: /^(0|[1-9]\d*)(\.\d+)?$/,
-						message: 'Кредитный лимит должен быть больше или равен 0'
-					}
+			<CustomInput
+				label='Кредитный лимит'
+				pattern={{
+					value: /^(0|[1-9]\d*)(\.\d+)?$/,
+					message: 'Кредитный лимит должен быть больше или равен 0'
 				}}
-				render={({ field: { onChange, value }, fieldState: { invalid, error } }) => (
-					<FormControl isInvalid={invalid}>
-						<FormLabel>Кредитный лимит</FormLabel>
-						<Input value={value} onChange={onChange} size='sm' />
-						{error?.message && <FormErrorMessage>{error.message}</FormErrorMessage>}
-					</FormControl>
-				)}
 				name={'balance.credit_limit'}
 				control={control}
 			/>

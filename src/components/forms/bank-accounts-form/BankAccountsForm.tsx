@@ -1,19 +1,12 @@
+import CustomAddBtn from '@/components/ui/CustomAddBtn'
+import CustomDeleteBtn from '@/components/ui/CustomDeleteBtn'
+import CustomInput from '@/components/ui/CustomInput'
+import CustomSwitch from '@/components/ui/CustomSwitch'
 import { useFormValues } from '@/hooks/useForm'
 import { uid } from '@/utils/uid'
-import { AddIcon } from '@chakra-ui/icons'
-import {
-	Box,
-	Button,
-	Divider,
-	Flex,
-	FormControl,
-	FormErrorMessage,
-	FormLabel,
-	Input,
-	Switch
-} from '@chakra-ui/react'
+import { Box, Divider, Flex } from '@chakra-ui/react'
 import { Fragment } from 'react'
-import { Controller, useFieldArray } from 'react-hook-form'
+import { useFieldArray } from 'react-hook-form'
 
 const BankAccountsForm = () => {
 	const { control, setValue } = useFormValues()
@@ -22,166 +15,78 @@ const BankAccountsForm = () => {
 		name: 'org.bank_accounts'
 	})
 
+	const appendForm = () =>
+		append({
+			id: uid(),
+			name: '',
+			account_number: '',
+			bik: '',
+			corr_account_number: '',
+			is_default: false
+		})
+
+	const removeForm = (index: number) => {
+		remove(index)
+		setValue(`org.bank_accounts.${0}.is_default`, true)
+	}
+
+	const switchHandler = (item: Record<'id', string>) => {
+		setValue(`org.bank_accounts`, [
+			...fields.map(field =>
+				field.id === item.id
+					? { ...field, is_default: true }
+					: { ...field, is_default: false }
+			)
+		])
+	}
+
 	return (
 		<Box>
 			{fields.map((item, index) => (
 				<Fragment key={item.id}>
 					<Flex justifyContent={'space-between'}>
 						<Box width={'70%'}>
-							<Controller
-								rules={{
-									required: {
-										value: true,
-										message: 'Введите название счета'
-									}
-								}}
-								render={({
-									field: { onChange, value },
-									fieldState: { invalid, error }
-								}) => (
-									<FormControl isInvalid={invalid}>
-										<FormLabel>Название счета</FormLabel>
-										<Input value={value} onChange={onChange} size='sm' />
-										{error?.message && (
-											<FormErrorMessage>{error.message}</FormErrorMessage>
-										)}
-									</FormControl>
-								)}
+							<CustomInput
+								control={control}
 								name={`org.bank_accounts.${index}.name`}
-								control={control}
+								label={'Название счета'}
+								required={{ value: true, message: 'Введите название счета' }}
 							/>
 
-							<Controller
-								rules={{
-									required: {
-										value: true,
-										message: 'Введите номер счета'
-									}
-								}}
-								render={({
-									field: { onChange, value },
-									fieldState: { invalid, error }
-								}) => (
-									<FormControl isInvalid={invalid}>
-										<FormLabel>Номер счета</FormLabel>
-										<Input value={value} onChange={onChange} size='sm' />
-										{error?.message && (
-											<FormErrorMessage>{error.message}</FormErrorMessage>
-										)}
-									</FormControl>
-								)}
-								name={`org.bank_accounts.${index}.account_number`}
+							<CustomInput
 								control={control}
+								name={`org.bank_accounts.${index}.name`}
+								label={'Номер счета'}
+								required={{ value: true, message: 'Введите номер счета' }}
 							/>
 
-							<Controller
-								rules={{
-									required: {
-										value: true,
-										message: 'Введите БИК счета'
-									}
-								}}
-								render={({
-									field: { onChange, value },
-									fieldState: { invalid, error }
-								}) => (
-									<FormControl isInvalid={invalid}>
-										<FormLabel>БИК счета</FormLabel>
-										<Input value={value} onChange={onChange} size='sm' />
-										{error?.message && (
-											<FormErrorMessage>{error.message}</FormErrorMessage>
-										)}
-									</FormControl>
-								)}
-								name={`org.bank_accounts.${index}.bik`}
+							<CustomInput
 								control={control}
+								name={`org.bank_accounts.${index}.name`}
+								label={'БИК счета'}
+								required={{ value: true, message: 'Введите БИК счета' }}
 							/>
 
-							<Controller
-								rules={{
-									required: {
-										value: true,
-										message: 'Введите Корр. номер счета'
-									}
-								}}
-								render={({
-									field: { onChange, value },
-									fieldState: { invalid, error }
-								}) => (
-									<FormControl isInvalid={invalid}>
-										<FormLabel>Корр. номер счета</FormLabel>
-										<Input value={value} onChange={onChange} size='sm' />
-										{error?.message && (
-											<FormErrorMessage>{error.message}</FormErrorMessage>
-										)}
-									</FormControl>
-								)}
-								name={`org.bank_accounts.${index}.corr_account_number`}
+							<CustomInput
 								control={control}
+								name={`org.bank_accounts.${index}.name`}
+								label={'Корр. номер счета'}
+								required={{ value: true, message: 'Введите Корр. номер счета' }}
 							/>
 
-							<Controller
-								render={({ field: { onChange, value } }) => (
-									<FormControl>
-										<FormLabel>Дефолтный счет</FormLabel>
-										<Switch
-											isDisabled={value}
-											isChecked={value}
-											name={`org.bank_accounts.${index}.is_default`}
-											onChange={() => {
-												setValue(`org.bank_accounts`, [
-													...fields.map(field =>
-														field.id === item.id
-															? { ...field, is_default: true }
-															: { ...field, is_default: false }
-													)
-												])
-											}}
-										/>
-									</FormControl>
-								)}
-								name={`org.bank_accounts.${index}.is_default`}
+							<CustomSwitch
+								name={`org.bank_accounts.${0}.is_default`}
 								control={control}
+								onChange={() => switchHandler(item)}
+								label={'Дефолтный счет'}
 							/>
 						</Box>
-						{index !== 0 && (
-							<Button
-								onClick={() => {
-									remove(index)
-									setValue(`org.bank_accounts.${0}.is_default`, true)
-								}}
-								border={'dotted'}
-								ml={'1em'}
-								borderColor={'red'}
-								size={'sm'}
-							>
-								Удалить
-							</Button>
-						)}
+						{index !== 0 && <CustomDeleteBtn removeFunc={() => removeForm(index)} />}
 					</Flex>
 					<Divider my={'.5em'} />
 				</Fragment>
 			))}
-
-			<Button
-				border={'dotted'}
-				borderColor={'gray.200'}
-				width={'100%'}
-				mt={'.5em'}
-				onClick={() =>
-					append({
-						id: uid(),
-						name: '',
-						account_number: '',
-						bik: '',
-						corr_account_number: '',
-						is_default: false
-					})
-				}
-				leftIcon={<AddIcon />}
-			>
-				Добавить еще счет
-			</Button>
+			<CustomAddBtn label='Добавить еще счет' appendFunc={appendForm} />
 		</Box>
 	)
 }

@@ -1,19 +1,8 @@
+import CustomInput from '@/components/ui/CustomInput'
 import { useFormValues } from '@/hooks/useForm'
 import { DeleteIcon } from '@chakra-ui/icons'
-import {
-	Box,
-	FormControl,
-	Input,
-	Table,
-	TableContainer,
-	Tbody,
-	Td,
-	Text,
-	Th,
-	Thead,
-	Tr
-} from '@chakra-ui/react'
-import { Controller, useFieldArray } from 'react-hook-form'
+import { Box, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
+import { useFieldArray } from 'react-hook-form'
 
 const MetaForm = () => {
 	const { control } = useFormValues()
@@ -37,31 +26,10 @@ const MetaForm = () => {
 						{fields.map((item, index) => (
 							<Tr key={item.id}>
 								<Td>
-									<Controller
-										render={({ field: { onChange, value } }) => (
-											<FormControl>
-												<Input
-													value={value}
-													onChange={onChange}
-													size='sm'
-												/>
-											</FormControl>
-										)}
-										name={`metadata.${index}.key`}
-										control={control}
-									/>
+									<CustomInput name={`metadata.${index}.key`} control={control} />
 								</Td>
 								<Td>
-									<Controller
-										render={({ field: { onChange, value } }) => (
-											<FormControl>
-												<Input
-													value={value}
-													onChange={onChange}
-													size='sm'
-												/>
-											</FormControl>
-										)}
+									<CustomInput
 										name={`metadata.${index}.prop`}
 										control={control}
 									/>

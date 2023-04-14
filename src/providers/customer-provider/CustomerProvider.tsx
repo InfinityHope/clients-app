@@ -8,7 +8,7 @@ export const CustomerContext = createContext({} as IContext)
 const CustomerProvider: FC<PropsWithChildren> = ({ children }) => {
 	const [customers, setCustomers] = useState<ICustomer[]>([])
 	const [loading, setLoading] = useState<boolean>(false)
-	const [error, setError] = useState('')
+	const [error, setError] = useState<string>('')
 
 	useEffect(() => {
 		;(async () => {
