@@ -43,7 +43,6 @@ const ControlBar: FC<IControlBar> = ({ onOpen }) => {
 			<Flex justifyContent={'space-between'} flexWrap={'wrap'}>
 				<SearchBar />
 				<Flex mt={!isLargerThan530 ? '1em' : 0} ml={!isLargerThan530 ? 0 : '1em'}>
-					<Button onClick={() => console.log(spreadCustomersForXLSX())}>Click</Button>
 					<ExportCsvBtn csvData={spreadCustomersForXLSX()} fileName={'customers-list'} />
 					<Button ml={'1em'} onClick={onOpen} leftIcon={<SmallAddIcon />}>
 						Добавить клиента
