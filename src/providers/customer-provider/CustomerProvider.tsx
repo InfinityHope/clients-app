@@ -1,3 +1,4 @@
+import { useSearch } from '@/hooks/useSearch'
 import { ICustomer } from '@/models/Customer.interface'
 import { CustomersService } from '@/services/customers-service/customers.service'
 import { FC, PropsWithChildren, createContext, useEffect, useState } from 'react'
@@ -9,12 +10,13 @@ const CustomerProvider: FC<PropsWithChildren> = ({ children }) => {
 	const [customers, setCustomers] = useState<ICustomer[]>([])
 	const [loading, setLoading] = useState<boolean>(false)
 	const [error, setError] = useState<string>('')
+	const { searchTerm } = useSearch()
 
 	useEffect(() => {
 		;(async () => {
 			try {
 				setLoading(true)
-				const res = await CustomersService.getCustomers()
+				const res = await CustomersService.getCustomers(searchTerm)
 				setCustomers(res)
 			} catch (error: unknown) {
 				setError(error as string)
@@ -23,7 +25,7 @@ const CustomerProvider: FC<PropsWithChildren> = ({ children }) => {
 				setLoading(false)
 			}
 		})()
-	}, [])
+	}, [searchTerm])
 
 	return (
 		<CustomerContext.Provider value={{ customers, setCustomers, loading, error }}>

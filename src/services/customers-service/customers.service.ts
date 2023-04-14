@@ -2,8 +2,8 @@ import { axiosInstance } from '@/api/axios.instance'
 import { ICustomer } from '@/models/Customer.interface'
 
 export const CustomersService = {
-	async getCustomers(): Promise<ICustomer[]> {
-		const { data } = await axiosInstance.get('/customers')
+	async getCustomers(searchTerm = ''): Promise<ICustomer[]> {
+		const { data } = await axiosInstance.get(`/customers${searchTerm && `?name=${searchTerm}`}`)
 		return data
 	},
 
