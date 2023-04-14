@@ -2,7 +2,7 @@ import { useSearch } from '@/hooks/useSearch'
 import { SearchIcon } from '@chakra-ui/icons'
 import { Button, Input, InputGroup, InputRightElement, useMediaQuery } from '@chakra-ui/react'
 
-import { useState } from 'react'
+import { KeyboardEvent, useState } from 'react'
 
 const SearchBar = () => {
 	const [isLargerThan530] = useMediaQuery('(min-width: 530px)')
@@ -17,6 +17,11 @@ const SearchBar = () => {
 		<InputGroup size='md' w={!isLargerThan530 ? '100%' : '40%'}>
 			<Input
 				value={value}
+				onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => {
+					if (e.code === 'Enter') {
+						onSearchHandler()
+					}
+				}}
 				onChange={e => setValue(e.target.value)}
 				pr='4.5rem'
 				placeholder='Поиск'
