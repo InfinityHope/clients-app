@@ -75,7 +75,7 @@ const BankAccountsForm = () => {
 							/>
 
 							<CustomSwitch
-								name={`org.bank_accounts.${0}.is_default`}
+								name={`org.bank_accounts.${index}.is_default`}
 								control={control}
 								onChange={() => switchHandler(item)}
 								label={'Дефолтный счет'}
